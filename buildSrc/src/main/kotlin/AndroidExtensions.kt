@@ -8,7 +8,7 @@ fun LibraryExtension.commonAndroid() {
     }
 
     compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
+        sourceCompatibility = BuildVersions.javaVersion
+        targetCompatibility = BuildVersions.javaVersion
     }
 }

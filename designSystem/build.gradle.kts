@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "$packageName.presentation"
+    namespace = "$packageName.designSystem"
     commonAndroid()
     buildFeatures {
         compose = true
@@ -13,9 +13,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":designSystem"))
-    implementation(project(":domain"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
