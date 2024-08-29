@@ -23,6 +23,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.runtime)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling)

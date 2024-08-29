@@ -124,5 +124,15 @@ fun ProductCard(
 @Preview
 @Composable
 fun ProductCard_Preview() {
-    ProductCard(item = UiProductItemModel(), onEdit = {}, onDelete = {})
+    ProductCard(
+        item = UiProductItemModel(
+            id = 0,
+            title = "Title",
+            date = "01.01.2024",
+            tags = listOf("One", "Two", "Three"),
+            amount = "Отсутствует", // TODO
+        ),
+        onEdit = {},
+        onDelete = {},
+    )
 }
