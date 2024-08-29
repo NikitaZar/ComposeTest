@@ -1,14 +1,23 @@
 plugins {
-    id(BuildPlugins.androidLibrary)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "$packageName.presentation"
-    commonAndroid()
+        compileSdk = AndroidSdk.compileSdk
+
+    defaultConfig {
+        minSdk = AndroidSdk.minSdk
+    }
+
+    compileOptions {
+        sourceCompatibility = BuildVersions.javaVersion
+        targetCompatibility = BuildVersions.javaVersion
+    }
     kotlinOptions {
         jvmTarget = BuildVersions.jvmTarget
     }
@@ -35,5 +44,5 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 }

@@ -12,8 +12,3 @@ object BuildVersions {
     val javaVersion = JavaVersion.VERSION_1_8
     val jvmTarget = "1.8"
 }
-
-object BuildPlugins {
-    const val androidLibrary = "com.android.library"
-    const val androidApplicationPlugin = "com.android.application"
-}
