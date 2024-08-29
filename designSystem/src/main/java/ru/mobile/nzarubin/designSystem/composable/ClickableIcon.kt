@@ -1,29 +1,41 @@
 package ru.mobile.nzarubin.designSystem.composable
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.clickable
+import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import ru.mobile.nzarubin.designSystem.R
 
 @Composable
 fun ClickableIcon(
-    @DrawableRes iconRes: Int,
+    image: ImageVector,
     modifier: Modifier = Modifier,
+    @StringRes contentDescription: Int? = null,
+    tint: Color = Color.Gray,
     onClick: () -> Unit,
 ) {
-    Icon(
-        painter = painterResource(id = iconRes),
-        contentDescription = null,
-        modifier = modifier.clickable { onClick.invoke() }
-    )
+    IconButton(
+        modifier = modifier,
+        onClick = onClick
+    ) {
+        Icon(
+            imageVector = image,
+            contentDescription = contentDescription?.run {
+                stringResource(contentDescription)
+            },
+            tint = tint,
+        )
+    }
 }
 
 @Preview
 @Composable
 fun ClickableIconPreview() {
-    ClickableIcon(R.drawable.ic_search_grey_24) { }
+    ClickableIcon(Icons.Rounded.Edit) { }
 }

@@ -15,6 +15,7 @@ android {
 dependencies {
     implementation(project(":designSystem"))
     implementation(project(":domain"))
+    implementation(project(":utils"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

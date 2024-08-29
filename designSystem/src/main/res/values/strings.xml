@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="on_stock">На складе</string>
+    <string name="date_added">Дата добавления</string>
+    <string name="absent">Отсутствует</string>
+</resources>
