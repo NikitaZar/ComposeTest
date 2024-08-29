@@ -29,15 +29,16 @@ import ru.mobile.nzarubin.designSystem.composable.ClickableIcon
 import ru.mobile.nzarubin.designSystem.res.Colors
 
 @Composable
-fun MobileCard(
-    uiModel: MobileUiItemModel,
+fun ProductCard(
+    item: UiProductItemModel,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = 6.dp),
+            .padding(all = 6.dp)
+            .padding(bottom = 8.dp),
         shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -54,7 +55,7 @@ fun MobileCard(
                 ) {
                     Text(
                         modifier = Modifier.align(Alignment.CenterVertically),
-                        text = uiModel.name,
+                        text = item.title,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                     )
@@ -75,7 +76,7 @@ fun MobileCard(
                     }
                 }
                 Row {
-                    uiModel.tags.forEach {
+                    item.tags.forEach {
                         FilterChip(
                             modifier = Modifier.padding(end = 6.dp),
                             selected = false,
@@ -98,7 +99,7 @@ fun MobileCard(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = uiModel.amount,
+                            text = item.amount,
                             fontSize = 16.sp,
                         )
                     }
@@ -110,7 +111,7 @@ fun MobileCard(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = uiModel.date,
+                            text = item.date,
                             fontSize = 16.sp,
                         )
                     }
@@ -123,5 +124,5 @@ fun MobileCard(
 @Preview
 @Composable
 fun ProductCard_Preview() {
-    MobileCard(uiModel = MobileUiItemModel(), onEdit = {}, onDelete = {})
+    ProductCard(item = UiProductItemModel(), onEdit = {}, onDelete = {})
 }

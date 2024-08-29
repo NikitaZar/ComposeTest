@@ -2,9 +2,9 @@ package ru.mobile.domain
 
 import java.util.Date
 
-data class MobileDomainItemModel(
+data class DomainProductItemModel(
     val id: Int,
-    val name: String,
+    val title: String,
     val date: Date,
     val tags: List<String>,
     val amount: Int,
