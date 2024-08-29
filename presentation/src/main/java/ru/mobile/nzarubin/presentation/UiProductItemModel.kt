@@ -11,7 +11,7 @@ data class UiProductItemModel(
     val amount: String,
 )
 
-fun DomainProductItemModel.mapToUiModel() = UiProductItemModel(
+fun DomainProductItemModel.mapToUi() = UiProductItemModel(
     id = this.id,
     title = this.title,
     date = this.date.toStringDate(),

@@ -1,9 +1,9 @@
-import org.jetbrains.kotlin.konan.util.visibleName
-
 plugins {
     id(BuildPlugins.androidApplicationPlugin)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -41,6 +41,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    kotlinOptions {
+        jvmTarget = BuildVersions.jvmTarget
+    }
 }
 
 dependencies {
@@ -59,4 +62,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

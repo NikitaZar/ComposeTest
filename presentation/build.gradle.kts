@@ -2,11 +2,16 @@ plugins {
     id(BuildPlugins.androidLibrary)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "$packageName.presentation"
     commonAndroid()
+    kotlinOptions {
+        jvmTarget = BuildVersions.jvmTarget
+    }
     buildFeatures {
         compose = true
     }
@@ -29,4 +34,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

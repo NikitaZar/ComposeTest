@@ -9,7 +9,8 @@ object AndroidSdk {
 }
 
 object BuildVersions {
-    val javaVersion = JavaVersion.VERSION_17
+    val javaVersion = JavaVersion.VERSION_1_8
+    val jvmTarget = "1.8"
 }
 
 object BuildPlugins {

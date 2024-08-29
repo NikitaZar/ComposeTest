@@ -7,6 +7,9 @@ plugins {
 android {
     namespace = "$packageName.designSystem"
     commonAndroid()
+    kotlinOptions {
+        jvmTarget = BuildVersions.jvmTarget
+    }
     buildFeatures {
         compose = true
     }
