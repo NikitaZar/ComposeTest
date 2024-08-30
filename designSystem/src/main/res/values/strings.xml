@@ -5,6 +5,10 @@
     <string name="absent">Отсутствует</string>
     <string name="product_list">Список товара</string>
     <string name="product_amount">Количество товара</string>
+    <string name="products_removing">Удаление товаров</string>
+    <string name="products_removing_message">Вы действительно хотите удалить выбранный товар?</string>
     <string name="confirm">Принять</string>
     <string name="cancel">Отмена</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>

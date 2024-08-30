@@ -2,7 +2,8 @@ package ru.mobile.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
 import ru.mobile.data.db.ProductDao
 import ru.mobile.data.mappers.ProductItemMapper
@@ -16,17 +17,22 @@ internal class ProductRepositoryImpl @Inject constructor(
     private val mapper: ProductItemMapper,
 ) : ProductRepository {
 
-    private var _filterName = String.empty
+    private val _textFilterFlow = MutableStateFlow(String.empty)
 
-    override val filteredFlow: Flow<DomainProductModel> = dao.getFilteredProductsFlow(_filterName).map { filteredProducts ->
-        DomainProductModel(
-            textFilter = _filterName,
-            items = filteredProducts.map(mapper::mapToDomain),
-        )
+    override val filteredFlow: Flow<DomainProductModel> = combine(
+        dao.getAllProductsFlow(),
+        _textFilterFlow,
+    ) { _, textFilter ->
+        withContext(Dispatchers.IO) {
+            DomainProductModel(
+                textFilter = textFilter,
+                items = dao.getFilteredProducts(textFilter).map(mapper::mapToDomain)
+            )
+        }
     }
 
     override suspend fun filterProductByName(filterName: String) {
-        _filterName = filterName
+        _textFilterFlow.emit(filterName)
     }
 
     override suspend fun changeAmount(id: Int, newAmount: Int) {

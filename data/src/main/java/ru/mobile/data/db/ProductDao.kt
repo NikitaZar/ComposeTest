@@ -6,8 +6,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductDao {
+
+    @Query("SELECT * FROM item")
+    fun getAllProductsFlow(): Flow<List<ProductItemEntity>>
+
     @Query("SELECT * FROM item WHERE name LIKE '%' || :filterName  || '%'")
-    fun getFilteredProductsFlow(filterName: String): Flow<List<ProductItemEntity>>
+    fun getFilteredProducts(filterName: String): List<ProductItemEntity>
 
     @Query("UPDATE item SET amount=:newAmount WHERE id =:id")
     suspend fun updateAmountById(id: Int, newAmount: Int)

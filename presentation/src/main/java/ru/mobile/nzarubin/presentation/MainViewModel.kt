@@ -7,36 +7,33 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.mobile.domain.useCase.DeleteItemUseCase
 import ru.mobile.domain.useCase.EditAmountUseCase
 import ru.mobile.domain.useCase.FilterProductUseCase
-import ru.mobile.nzarubin.utils.empty
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val filterProductUseCase: FilterProductUseCase,
     private val editAmountUseCase: EditAmountUseCase,
+    private val deleteItemUseCase: DeleteItemUseCase,
 ) : ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            filterProductUseCase(String.empty)
-        }
-    }
-
     private val _editAmountDialogVisibleFlow = MutableStateFlow(UiProductModel.idle.editAmountDialogState)
+    private val _deleteItemDialogStateFlow = MutableStateFlow(UiProductModel.idle.deleteItemDialogState)
 
     val state: Flow<UiProductModel> = combine(
         filterProductUseCase.domainFlow,
         _editAmountDialogVisibleFlow,
-    ) { filteredProductsModel, editAmountDialogState ->
+        _deleteItemDialogStateFlow
+    ) { filteredProductModel, editAmountDialogState, deleteItemDialogState ->
         UiProductModel(
-            searchText = filteredProductsModel.textFilter,
-            items = filteredProductsModel.items.map { domainItem ->
+            searchText = filteredProductModel.textFilter,
+            items = filteredProductModel.items.map { domainItem ->
                 domainItem.mapToUi()
             },
             editAmountDialogState = editAmountDialogState,
-            isDeleteDialogVisible = false,
+            deleteItemDialogState = deleteItemDialogState,
         )
     }
 
@@ -75,6 +72,32 @@ class MainViewModel @Inject constructor(
                 newAmount = newAmount
             )
             hideEditAmountDialog()
+        }
+    }
+
+    fun showDeleteItemDialog(itemId: Int) {
+        viewModelScope.launch {
+            _deleteItemDialogStateFlow.emit(
+                UiProductModel.DeleteItemDialogState(
+                    isVisible = true,
+                    itemId = itemId,
+                )
+            )
+        }
+    }
+
+    fun hideDeleteItemDialog() {
+        viewModelScope.launch {
+            _deleteItemDialogStateFlow.emit(
+                UiProductModel.idle.deleteItemDialogState
+            )
+        }
+    }
+
+    fun deleteItem() {
+        viewModelScope.launch {
+            deleteItemUseCase(_deleteItemDialogStateFlow.value.itemId)
+            hideDeleteItemDialog()
         }
     }
 }
