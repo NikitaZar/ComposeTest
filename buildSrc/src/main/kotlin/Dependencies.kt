@@ -10,5 +10,13 @@ object AndroidSdk {
 
 object BuildVersions {
     val javaVersion = JavaVersion.VERSION_1_8
-    val jvmTarget = "1.8"
+    const val jvmTarget = "1.8"
+}
+
+object BuildPlugins {
+    object Versions {
+        const val ktlintVersion = "0.44.0"
+    }
+
+    const val ktlint = "com.pinterest:ktlint:${Versions.ktlintVersion}"
 }
