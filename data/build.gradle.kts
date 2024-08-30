@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "$packageName.data"
-        compileSdk = AndroidSdk.compileSdk
+    compileSdk = AndroidSdk.compileSdk
 
     defaultConfig {
         minSdk = AndroidSdk.minSdk
@@ -28,4 +28,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.room.ktx)
+    annotationProcessor(libs.room.annotation.processor)
+    kapt(libs.room.annotation.processor)
+    implementation(libs.kotlinx.serialization)
 }
