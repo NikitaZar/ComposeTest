@@ -39,7 +39,7 @@ fun MainScreen(
             title = {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Список товаров", // TODO
+                    text = stringResource(R.string.product_list),
                     textAlign = TextAlign.Center,
                 )
             },

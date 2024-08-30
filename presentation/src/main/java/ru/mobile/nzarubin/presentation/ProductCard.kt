@@ -135,7 +135,7 @@ fun ProductCard_Preview() {
             title = "Title",
             date = "01.01.2024",
             tags = listOf("Электронная книга", "Последний шанс", "Ограниченный"),
-            amount = "Отсутствует", // TODO
+            amount = "Отсутствует",
         ),
         onEdit = {},
         onDelete = {},
