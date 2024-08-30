@@ -25,6 +25,12 @@ internal class ProductRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getAmount(id: Int): Int {
+        return withContext(Dispatchers.IO) {
+            dao.getAmountByItemId(id)
+        }
+    }
+
     override suspend fun deleteProduct(id: Int) {
         withContext(Dispatchers.IO) {
             dao.deleteProductById(id)

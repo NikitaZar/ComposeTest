@@ -18,10 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ru.mobile.nzarubin.designSystem.R
 import ru.mobile.nzarubin.designSystem.composable.ClickableIcon
+import ru.mobile.nzarubin.designSystem.composable.EditCountDialog
 import ru.mobile.nzarubin.designSystem.res.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,13 +75,30 @@ fun MainScreen(
                     ProductCard(
                         item = item,
                         onEdit = {
-                            /*TODO*/
+                            viewModel.showEditAmountDialog(item.id)
                         },
                         onDelete = {
                             /*TODO*/
                         }
                     )
                 },
+            )
+        }
+    }
+
+    with(state.value.editAmountDialogState) {
+        if (isVisible) {
+            EditCountDialog(
+                originalCount = amount,
+                title = stringResource(R.string.product_amount),
+                positiveButtonText = stringResource(R.string.confirm),
+                negativeButtonText = stringResource(R.string.cancel),
+                onEdit = { newAmount ->
+                    viewModel.editAmount(newAmount)
+                },
+                onCancel = {
+                    viewModel.hideEditAmountDialog()
+                }
             )
         }
     }

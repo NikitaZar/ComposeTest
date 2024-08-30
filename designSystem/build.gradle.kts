@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "$packageName.designSystem"
-        compileSdk = AndroidSdk.compileSdk
+    compileSdk = AndroidSdk.compileSdk
 
     defaultConfig {
         minSdk = AndroidSdk.minSdk
@@ -36,4 +36,5 @@ dependencies {
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.icons)
 }

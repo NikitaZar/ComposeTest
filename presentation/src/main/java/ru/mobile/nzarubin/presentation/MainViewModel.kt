@@ -7,13 +7,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import ru.mobile.domain.FilterProductUseCase
+import ru.mobile.domain.useCase.EditAmountUseCase
+import ru.mobile.domain.useCase.FilterProductUseCase
 import ru.mobile.nzarubin.utils.empty
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val filterProductUseCase: FilterProductUseCase,
+    private val editAmountUseCase: EditAmountUseCase,
 ) : ViewModel() {
 
     init {
@@ -23,16 +25,20 @@ class MainViewModel @Inject constructor(
     }
 
     private val _searchTextStateFlow = MutableStateFlow(String.empty)
+    private val _editAmountDialogVisibleFlow = MutableStateFlow(UiProductModel.idle.editAmountDialogState)
 
     val state: Flow<UiProductModel> = combine(
         filterProductUseCase.domainFlow,
         _searchTextStateFlow,
-    ) { productList, searchText ->
+        _editAmountDialogVisibleFlow,
+    ) { productList, searchText, editAmountDialogState ->
         UiProductModel(
             searchText = searchText,
             items = productList.map { domainItem ->
                 domainItem.mapToUi()
             },
+            editAmountDialogState = editAmountDialogState,
+            isDeleteDialogVisible = false,
         )
     }
 
@@ -40,6 +46,38 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _searchTextStateFlow.emit(text)
             filterProductUseCase(text)
+        }
+    }
+
+    fun showEditAmountDialog(itemId: Int) {
+        viewModelScope.launch {
+            val amount = editAmountUseCase.getAmount(itemId)
+
+            _editAmountDialogVisibleFlow.emit(
+                UiProductModel.EditAmountDialogState(
+                    isVisible = true,
+                    itemId = itemId,
+                    amount = amount
+                )
+            )
+        }
+    }
+
+    fun hideEditAmountDialog() {
+        viewModelScope.launch {
+            _editAmountDialogVisibleFlow.emit(
+                UiProductModel.idle.editAmountDialogState
+            )
+        }
+    }
+
+    fun editAmount(newAmount: Int) {
+        viewModelScope.launch {
+            editAmountUseCase.editAmount(
+                itemId = _editAmountDialogVisibleFlow.value.itemId,
+                newAmount = newAmount
+            )
+            hideEditAmountDialog()
         }
     }
 }

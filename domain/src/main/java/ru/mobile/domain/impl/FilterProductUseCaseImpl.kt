@@ -3,7 +3,7 @@ package ru.mobile.domain.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.mobile.domain.DomainProductItemModel
-import ru.mobile.domain.FilterProductUseCase
+import ru.mobile.domain.useCase.FilterProductUseCase
 import ru.mobile.domain.ProductRepository
 import javax.inject.Inject
 

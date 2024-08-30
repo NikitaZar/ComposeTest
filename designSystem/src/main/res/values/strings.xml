@@ -3,4 +3,7 @@
     <string name="on_stock">На складе</string>
     <string name="date_added">Дата добавления</string>
     <string name="absent">Отсутствует</string>
+    <string name="product_amount">Количество товара</string>
+    <string name="confirm">Принять</string>
+    <string name="cancel">Отмена</string>
 </resources>
