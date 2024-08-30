@@ -1,6 +1,8 @@
 package ru.mobile.nzarubin.presentation
 
 import ru.mobile.domain.model.DomainProductItemModel
+import ru.mobile.nzarubin.designSystem.R
+import ru.mobile.nzarubin.utils.string
 import ru.mobile.nzarubin.utils.toStringDate
 
 data class UiProductItemModel(
@@ -16,5 +18,5 @@ fun DomainProductItemModel.mapToUi() = UiProductItemModel(
     title = this.title,
     date = this.date.toStringDate(),
     tags = this.tags,
-    amount = this.amount.takeIf { it > 0 }?.toString() ?: "Отсутствует", // TODO
+    amount = this.amount.takeIf { it > 0 }?.toString() ?: string(R.string.absent),
 )
