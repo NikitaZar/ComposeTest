@@ -67,7 +67,7 @@ fun ProductCard(
                             image = Icons.Rounded.Edit,
                             tint = Colors.Purple,
 
-                            ) {
+                        ) {
                             onEdit.invoke()
                         }
                         ClickableIcon(

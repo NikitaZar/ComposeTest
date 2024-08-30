@@ -5,5 +5,4 @@ import androidx.annotation.StringRes
 interface ContextWrapperUtils {
 
     fun getString(@StringRes resId: Int): String
-
 }
