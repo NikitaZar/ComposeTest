@@ -3,6 +3,8 @@ package ru.mobile.nzarubin.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +30,7 @@ import ru.mobile.nzarubin.designSystem.R
 import ru.mobile.nzarubin.designSystem.composable.ClickableIcon
 import ru.mobile.nzarubin.designSystem.res.Colors
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ProductCard(
     item: UiProductItemModel,
@@ -75,7 +78,9 @@ fun ProductCard(
                         }
                     }
                 }
-                Row {
+                FlowRow(
+                    verticalArrangement = Arrangement.spacedBy((-8).dp),
+                ) {
                     item.tags.forEach {
                         FilterChip(
                             modifier = Modifier.padding(end = 6.dp),
@@ -129,7 +134,7 @@ fun ProductCard_Preview() {
             id = 0,
             title = "Title",
             date = "01.01.2024",
-            tags = listOf("One", "Two", "Three"),
+            tags = listOf("Электронная книга", "Последний шанс", "Ограниченный"),
             amount = "Отсутствует", // TODO
         ),
         onEdit = {},
