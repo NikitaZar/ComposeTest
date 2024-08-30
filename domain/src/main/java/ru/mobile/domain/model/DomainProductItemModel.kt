@@ -1,4 +1,4 @@
-package ru.mobile.domain
+package ru.mobile.domain.model
 
 import java.util.Date
 

@@ -24,17 +24,15 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val _searchTextStateFlow = MutableStateFlow(String.empty)
     private val _editAmountDialogVisibleFlow = MutableStateFlow(UiProductModel.idle.editAmountDialogState)
 
     val state: Flow<UiProductModel> = combine(
         filterProductUseCase.domainFlow,
-        _searchTextStateFlow,
         _editAmountDialogVisibleFlow,
-    ) { productList, searchText, editAmountDialogState ->
+    ) { filteredProductsModel, editAmountDialogState ->
         UiProductModel(
-            searchText = searchText,
-            items = productList.map { domainItem ->
+            searchText = filteredProductsModel.textFilter,
+            items = filteredProductsModel.items.map { domainItem ->
                 domainItem.mapToUi()
             },
             editAmountDialogState = editAmountDialogState,
@@ -44,7 +42,6 @@ class MainViewModel @Inject constructor(
 
     fun setSearchText(text: String) {
         viewModelScope.launch {
-            _searchTextStateFlow.emit(text)
             filterProductUseCase(text)
         }
     }

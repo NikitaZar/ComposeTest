@@ -1,7 +1,7 @@
 package ru.mobile.data.mappers
 
 import ru.mobile.data.db.ProductItemEntity
-import ru.mobile.domain.DomainProductItemModel
+import ru.mobile.domain.model.DomainProductItemModel
 
 interface ProductItemMapper {
     fun mapToDomain(entity: ProductItemEntity): DomainProductItemModel

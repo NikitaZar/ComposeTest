@@ -1,6 +1,6 @@
 package ru.mobile.nzarubin.presentation
 
-import ru.mobile.domain.DomainProductItemModel
+import ru.mobile.domain.model.DomainProductItemModel
 import ru.mobile.nzarubin.utils.toStringDate
 
 data class UiProductItemModel(
