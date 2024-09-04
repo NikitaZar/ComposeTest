@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -27,6 +29,12 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            applicationVariants.all {
+                outputs.forEach { output ->
+                    (output as BaseVariantOutputImpl).outputFileName = "ip-test-task.apk"
+                }
+            }
         }
     }
     compileOptions {
